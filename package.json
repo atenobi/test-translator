@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "fetch-with-proxy": "^3.0.1",
+    "y": "^0.3.2"
+  }
+}
