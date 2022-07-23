@@ -6,18 +6,18 @@
     <title>Test-translator</title>
   </head>
   <body>
-    <div>
-      <textarea name="text-input" cols="30" rows="10" id="js-input"></textarea>
+    <div class="own-container font-basic">
+      <textarea name="text-input" cols="30" rows="10" id="js-input" class="text-input"></textarea>
 
       <label for="js-lang-from">translate from</label>
-      <select id="js-lang-from">
+      <select id="js-lang-from" class="lang-select">
         <option value="" for="js-lang-from" selected="selected">-</option>
         <option value="en" for="js-lang-from">English</option>
         <option value="ru" for="js-lang-from">Russian</option>
       </select>
 
       <label for="js-lang-to">translate to</label>
-      <select id="js-lang-to">
+      <select id="js-lang-to" class="lang-select">
         <optgroup for="js-lang-to">
           <option value="" for="js-lang-from" selected="selected">-</option>
           <option value="en">English</option>
@@ -25,10 +25,10 @@
         </optgroup>
       </select>
 
-      <button type="submit" id="js-submit">translate</button>
+      <button type="submit" id="js-submit" class="submit-button font-basic">translate</button>
 
-      <div>
-        <span id="js-output"></span>
+      <div class="output-container">
+        <span id="js-output" class="output-text"></span>
       </div>
 
     </div>
