@@ -26,6 +26,8 @@
 }
 
 .submit-button {
+    text-decoration: none;
+    text-align: center;
     width: 40%;
     margin: 10px auto;
     padding: 20px;
@@ -45,4 +47,8 @@
 .output-container {
     text-align: center;
     margin: 20px auto;
+}
+
+.output-text {
+    width: 450px;
 }

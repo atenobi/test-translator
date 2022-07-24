@@ -1,11 +1,18 @@
+// elements
 const userInputEl = document.getElementById("js-input");
 const userButtonEl = document.getElementById("js-submit");
+const userButtonSaveEl = document.getElementById("js-save");
 const selectLangFromEl = document.getElementById("js-lang-from");
 const selectLangToEl = document.getElementById("js-lang-to");
+const outputTextEl = document.getElementById("js-output-text");
+
+// canvas
 const outputEl = document.getElementById("js-output");
+const context = outputEl.getContext("2d");
 
 let userText = "";
 
+// API translate func
 const getTranslation = async (text, from, to) => {
   let result = "";
 
@@ -53,8 +60,9 @@ const selectToHandler = (e) => {
 };
 
 const clickHandler = async () => {
-  console.log(userParams);
   let translatedText = "";
+//   clear canvas
+  context.clearRect(0, 0, outputEl.width, outputEl.height);
 
   translatedText += await getTranslation(
     userText,
@@ -62,13 +70,39 @@ const clickHandler = async () => {
     userParams.to
   );
   userParams.finalTranslation = translatedText;
-  //   console.log(translatedText);
   translatedText += "";
-  outputEl.textContent = userParams.finalTranslation;
+//   to text element
+  outputTextEl.textContent = userParams.finalTranslation;
+//   to canvas
+  context.font = "18px serif";
+  context.fillText(`${outputTextEl.textContent}`, 0, 50, 500);
 };
 
+async function saveHandler(e) {
+  e.target.innerHTML = "downloading";
+
+  const doc = new jsPDF("l", "pt");
+
+  await html2canvas(outputEl, {
+    proxy:
+      "https://cors-anywhere.herokuapp.com/https://github.com/niklasvh/html2canvas-proxy-nodejs",
+    with: 500,
+    allowTaint: true,
+    useCORS: true,
+  }).then((canvas) => {
+      doc.addImage(canvas.toDataURL("image/pdf"), "PDF", 5, 5, 600, 200);
+  });
+
+  doc.save("Document.pdf");
+  e.target.innerHTML = "save PDF";
+  
+}
+
+
+// listeners
 userInputEl.addEventListener("change", changeHandler);
 userButtonEl.addEventListener("click", clickHandler);
-
 selectLangFromEl.addEventListener("change", selectFromHandler);
 selectLangToEl.addEventListener("change", selectToHandler);
+userButtonSaveEl.addEventListener("click", saveHandler);
+
